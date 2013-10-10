@@ -12,11 +12,11 @@
 //Globally register a function using a given key
 #define REGISTER_FUNCTION(REGISTRY, FUNCTION, KEY) \
 	namespace {const bool _reg_##REGISTRY##_##FUNCTION( \
-		registries::REGISTRY::register_func((KEY), (&(FUNCTION))));}
+		registries::REGISTRY::register_function((KEY), (&(FUNCTION))));}
 
 //Retrieve a function by name
 #define GET_FUNCTION(REGISTRY, KEY) \
-	(registries::REGISTRY::get_func((KEY)))
+	(registries::REGISTRY::get_function((KEY)))
 
 //Call a function by name. May throw key_not_registered 
 #define CALL_FUNCTION(REGISTRY, KEY, ...) \

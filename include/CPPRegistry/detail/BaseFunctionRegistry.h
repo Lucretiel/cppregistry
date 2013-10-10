@@ -16,10 +16,9 @@ class BaseFunctionRegistry
 public:
 	typedef Key key_type;
 	typedef FunctionPtrType function_type;
-	typedef std::result_of<FunctionType>::type return_type;
 
 private:
-	typedef GenericRegistry<key_type, function_ptr_type> registry_type;
+	typedef GenericRegistry<key_type, function_type> registry_type;
 	registry_type m_registry;
 
 public:
@@ -30,10 +29,10 @@ public:
 		m_registry.register_item(key, func);
 	}
 
-	function_ptr_type get_function(const Key& key) const
+	const function_type get_function(const Key& key) const
 	{
-		auto result = m_registry.get_item(key);
-		return function_type ? *function_type : nullptr;
+		const function_type* result = m_registry.get_item(key);
+		return result ? *result : nullptr;
 	}
 
 	const keys_type& get_registered_functions() const

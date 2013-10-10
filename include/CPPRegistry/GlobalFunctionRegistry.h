@@ -29,13 +29,13 @@ public:
 	typedef typename registry_type::keys_type keys_type;
 
 	//returns bool for static initializtion
-	static bool register_func(const key_type& key, function_type func)
+	static bool register_function(const key_type& key, function_type func)
 	{
 		get_registry().register_function(key, func);
 		return true;
 	}
 
-	static function_type get_func(const key_type& key)
+	static function_type get_function(const key_type& key)
 	{
 		return get_registry().get_function(key);
 	}

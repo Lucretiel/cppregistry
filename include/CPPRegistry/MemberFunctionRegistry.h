@@ -18,7 +18,10 @@ public:
 	typedef Type object_type;
 
 	template<class T, class... DeterminedArgs>
-	return_type call_member_function(T&& object, const key_type& key, DeterminedArgs&&... args)
+	return_type call_member_function(
+		T&& object,
+		const key_type& key,
+		DeterminedArgs&&... args) const
 	{
 		auto func = get_function(key);
 		if(func)

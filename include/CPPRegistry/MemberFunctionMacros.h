@@ -13,7 +13,7 @@
 		registries::REGISTRY::register_function((KEY), (&(REGISTRY::object_type::FUNCTION))));}
 
 #define GET_MEMBER_FUNCTION(REGISTRY, KEY) \
-	(registries::REGISTRY::get_func((KEY)))
+	(registries::REGISTRY::get_function((KEY)))
 
 #define CALL_MEMBER_FUNCTION(REGISTRY, KEY, OBJECT, ...) \
 	(registries::REGISTRY::call_function((OBJECT), (KEY), __VA_ARGS__))

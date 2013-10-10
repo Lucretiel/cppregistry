@@ -13,7 +13,7 @@ public:
 	typedef Key key_type;
 	
 	template<class... DeterminedArgs>
-	return_type call_function(const key_type& key, DeterminedArgs&&... args)
+	return_type call_function(const key_type& key, DeterminedArgs&&... args) const
 	{
 		auto func = get_function(key);
 		if(func)

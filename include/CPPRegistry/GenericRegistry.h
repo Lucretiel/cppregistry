@@ -15,7 +15,7 @@ public:
 	typedef std::unordered_set<key_type> keys_type;
 
 private:
-	typedef std::unordered_map<keys_type, value_type> registry_type;
+	typedef std::unordered_map<key_type, value_type> registry_type;
 
 	registry_type m_registry;
 	keys_type keys;
@@ -28,12 +28,20 @@ public:
 		keys.emplace(key);
 	}
 
-	value_type* get_item(const key_type& key) const
+	const value_type* get_item(const key_type& key) const
 	{
 		auto result = m_registry.find(key);
 		return result != m_registry.end() ?
 			&result->second : nullptr;
 	}
+
+	value_type* get_item(const key_type& key)
+	{
+		auto result = m_registry.find(key);
+		return result != m_registry.end() ?
+			&result->second : nullptr;
+	}
+
 
 	const keys_type& get_registered_items() const
 	{
