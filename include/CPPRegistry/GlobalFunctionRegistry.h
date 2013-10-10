@@ -43,7 +43,7 @@ public:
 	template<class... DeterminedTypes>
 	static return_type call_function(const key_type& key, DeterminedTypes&&... args)
 	{
-		return get_registry().call_funcion(key, std::forward<DeterminedTypes>(args)...);
+		return get_registry().call_function(key, std::forward<DeterminedTypes>(args)...);
 	}
 
 	static const keys_type& get_registered_functions()
