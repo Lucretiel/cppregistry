@@ -1,7 +1,5 @@
 #pragma once
 
-#include <exception>
-#include <type_traits>
 #include <CPPRegistry\GenericRegistry.h>
 
 namespace registry
@@ -43,7 +41,7 @@ public:
 
 }
 
-class function_not_registered : public std::exception
+class function_not_registered
 {
 public:
 	const char* what() const override
