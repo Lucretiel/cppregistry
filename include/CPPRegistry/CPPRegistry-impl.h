@@ -87,8 +87,7 @@ public:
 	}
 };
 
-//Base class for storing function pointers of all kinds. Basically a layer to
-//GenericPointerRegisrty with renamed methods
+//Base class for storing function pointers of all kinds.
 template<class Key, class Function>
 class BaseFunctionRegistry
 {
@@ -164,19 +163,19 @@ public:
 //Type registry. Stores and constructs instances of types of a given base class.
 //TODO: support for constructor args.
 //Note: Have tried to implement this. Trouble is the signature of TypeRegistry::make.
+//Obviously it would assume that all Derived classes have the same signature.
+//TODO: add support for allocators. Because EVERYONE uses allocators.
 template<class Key, class Base>
 class TypeRegistry
 {
-public:
-	typedef Key key_type;
-	typedef Base base_type;
-	typedef Base* base_ptr;
-
 private:
-	typedef FunctionRegistry<key_type, base_ptr> registry_type;
+	typedef FunctionRegistry<Key, Base*> registry_type;
 
 public:
 	typedef typename registry_type::keys_type keys_type;
+	typedef Key key_type;
+	typedef Base base_type;
+	typedef Base* base_ptr;
 
 private:
 	registry_type m_registry;

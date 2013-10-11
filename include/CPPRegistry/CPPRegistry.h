@@ -17,10 +17,18 @@ struct function_not_registered
 			##REGISTRY_NAME##_nametag, \
 			KEY_TYPE, RETURN_TYPE, __VA_ARGS__> REGISTRY_NAME;}
 
-//Globally register a function using a given key
+//Create a named global function registry with given return and argument types, using std::string as the key type
+#define FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, ...) \
+	BASIC_FUNCTION_REGISTRY(REGISTRY_NAME, std::string, RETURN_TYPE, __VA_ARGS__)
+
+//Register a function using a given key
 #define REGISTER_FUNCTION(REGISTRY, FUNCTION, KEY) \
 	namespace {const bool reg_##REGISTRY##_##FUNCTION##( \
 		registries::REGISTRY::register_function((KEY), (&(FUNCTION))));}
+
+//Register a function, using the function's name as the key
+#define REGISTER_NAMED_FUNCTION(REGISTRY, FUNCTION) \
+	REGISTER_FUNCTION(REGISTRY, FUNCTION, #FUNCTION)
 
 //Retrieve a function by name
 #define GET_FUNCTION(REGISTRY, KEY) \
@@ -41,15 +49,7 @@ struct function_not_registered
 	REGISTER_FUNCTION(REGISTRY, FUNCTION, KEY); \
 	registries::REGISTRY::return_type FUNCTION(__VA_ARGS__)
 
-//Create a named global function registry with given return and argument types, using std::string as the key type
-#define FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, ...) \
-	BASIC_FUNCTION_REGISTRY(REGISTRY_NAME, std::string, RETURN_TYPE, __VA_ARGS__)
-
-//Globally register a function, using the function's name as the key
-#define REGISTER_NAMED_FUNCTION(REGISTRY, FUNCTION) \
-	REGISTER_FUNCTION(REGISTRY, FUNCTION, #FUNCTION)
-
-//Header for creating preregistered functions
+//Header for creating preregistered functions with the function name as the key
 #define REGISTERED_NAMED_FUNCTION(REGISTRY, FUNCTION, ...) \
 	REGISTERED_FUNCTION(REGISTRY, FUNCTION, #FUNCTION, __VA_ARGS__)
 
@@ -65,9 +65,15 @@ struct function_not_registered
 			##REGISTRY_NAME##_nametag, \
 			KEY_TYPE, RETURN_TYPE, OBJECT_TYPE, __VA_ARGS__> REGISTRY_NAME;}
 
+#define MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, OBJECT_TYPE, ...) \
+	BASIC_MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, std::string, RETURN_TYPE, OBJECT_TYPE, __VA_ARGS__)
+
 #define REGISTER_MEMBER_FUNCTION(REGISTRY, FUNCTION, KEY) \
 	namespace { const bool reg_##REGISTRY##_##FUNCTION( \
 		registries::REGISTRY::register_function((KEY), (&(REGISTRY::object_type::FUNCTION))));}
+
+#define REGISTER_NAMED_MEMBER_FUNCTION(REGISTRY, FUNCTION) \
+	REGISTER_MEMBER_FUNCTION(REGISTRY, FUNCTION, #FUNCTION)
 
 #define GET_MEMBER_FUNCTION(REGISTRY, KEY) \
 	(registries::REGISTRY::get_function((KEY)))
@@ -78,11 +84,6 @@ struct function_not_registered
 #define GET_REGISTERED_MEMBER_FUNCTIONS(REGISTRY) \
 	(registries::REGISTRY::get_registered_functions())
 
-#define MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, OBJECT_TYPE, ...) \
-	BASIC_MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, std::string, RETURN_TYPE, OBJECT_TYPE, __VA_ARGS__)
-
-#define REGISTER_NAMED_MEMBER_FUNCTION(REGISTRY, FUNCTION) \
-	REGISTER_MEMBER_FUNCTION(REGISTRY, FUNCTION, #FUNCTION)
 
 /////////////////////////////////////////////////////////////////////
 // TYPE MACROS
@@ -94,9 +95,15 @@ struct function_not_registered
 			##REGISTRY_NAME##_nametag, \
 			KEY_TYPE, BASE_TYPE> REGISTRY_NAME;}
 
+#define TYPE_REGISTRY(REGISTRY_NAME, BASE_TYPE) \
+	BASIC_TYPE_REGISTRY(REGISTRY_NAME, std::string, BASE_TYPE)
+
 #define REGISTER_TYPE(REGISTRY, TYPE, KEY) \
 	namespace {const bool reg_##REGISTRY##_##TYPE( \
 		registries::REGISTRY::register_type<TYPE>((KEY)));}
+
+#define REGISTER_NAMED_TYPE(REGISTRY, TYPE) \
+	REGISTERED_TYPE(REGISTRY, TYPE, #TYPE)
 
 #define MAKE_TYPE(REGISTRY, KEY) \
 	(registries::REGISTRY::make_type((KEY)))
@@ -110,12 +117,6 @@ struct function_not_registered
 	class TYPE; \
 	REGISTER_TYPE(REGISTRY, TYPE, KEY); \
 	class TYPE
-
-#define TYPE_REGISTRY(REGISTRY_NAME, BASE_TYPE) \
-	BASIC_TYPE_REGISTRY(REGISTRY_NAME, std::string, BASE_TYPE)
-
-#define REGISTER_NAMED_TYPE(REGISTRY, TYPE) \
-	REGISTERED_TYPE(REGISTRY, TYPE, #TYPE)
 
 #define REGISTERED_NAMED_TYPE(REGISTRY, TYPE) \
 	REGISTERED_TYPE(REGISTRY, TYPE, #TYPE)
