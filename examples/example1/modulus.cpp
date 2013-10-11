@@ -1,8 +1,7 @@
 #include "operator.h"
 
 /*
- *  Here's a look under the hood. You are welcome to use this style instead of
- *  the macros- they simply help reduce the verbosity.
+ *  Here's a look under the hood.
  */
 int modulus(int a, int b)
 {

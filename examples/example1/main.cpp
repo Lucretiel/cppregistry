@@ -9,12 +9,19 @@
  */
 
 //Uncomment to use the throwing version
-#define USE_THROWING
+//#define USE_THROWING
+
+//Uncomment to use macro version
+//#define USE_MACRO
 
 int main()
 {
 	using namespace std;
+#ifdef USE_MACRO
 	auto& available_operators = GET_REGISTERED_FUNCTIONS(Operators);
+#else
+	auto& available_operators = registries::Operators::get_registered_functions();
+#endif
 
 	while(true)
 	{
@@ -31,22 +38,30 @@ int main()
 		int a = 0, b = 0;
 		cin >> a >> b;
 
-#ifndef USE_THROWING
-		auto function = GET_FUNCTION(Operators, operation);
-		if(function)
-			cout << "  Result: " << function(a, b) << '\n';
-		else
-			cout << "  " << operation << " is not a registered operation!\n";
-#else
+#ifdef USE_THROWING
 		try
 		{
+#ifdef USE_MACROS
 			int result = CALL_FUNCTION(Operators, operation, a, b);
+#else
+			int result = registries::Operators::call_function(operation, a, b);
+#endif
 			cout << "  Result: " << result << '\n';
 		}
 		catch(registry::function_not_registered&)
 		{
 			cout << "  " << operation << " is not a registered operation!\n";
 		}
+#else
+#ifdef USE_MACROS
+		auto function = GET_FUNCTION(Operators, operation);
+#else
+		auto function = registries::Operators::get_function(operation);
+#endif
+		if(function)
+			cout << "  Result: " << function(a, b) << '\n';
+		else
+			cout << "  " << operation << " is not a registered operation!\n";
 #endif
 	}
 
