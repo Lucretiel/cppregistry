@@ -1,5 +1,4 @@
 #pragma once
 
-#include <CPPRegistry\NamedFunctionMacros.h>
-#include <CPPRegistry\NamedMemberFunctionMacros.h>
-#include <CPPRegistry\NamedTypeMacros.h>
+//This should pull everything else in
+#include <CPPRegistry/Macros/NamedMacros.h>
