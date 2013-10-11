@@ -122,9 +122,6 @@ public:
 	}
 };
 
-struct function_not_registered
-{};
-
 //Function registry. Stores, retrieves, and calls regular function pointers.
 template<class Key, class Ret, class... Args>
 class FunctionRegistry: public BaseFunctionRegistry<Key, Ret(*)(Args...)>
@@ -187,7 +184,7 @@ private:
 	template<class Derived>
 	static base_ptr make()
 	{
-		return Derived();
+		return new Derived();
 	}
 
 public:
@@ -303,7 +300,7 @@ public:
 };
 
 template<class NameTag, class Key, class Base>
-class NamedGlobalTypeRegistry
+class GlobalTypeRegistry
 {
 private:
 	typedef TypeRegistry<Key, Base> registry_type;
