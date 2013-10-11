@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <CPPRegistry\TypeMacros.h>
+#include <CPPRegistry/Macros/Type/TypeMacros.h>
 
 #define TYPE_REGISTRY(REGISTRY_NAME, BASE_TYPE) \
 	BASIC_TYPE_REGISTRY(REGISTRY_NAME, std::string, BASE_TYPE)

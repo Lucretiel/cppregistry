@@ -22,26 +22,25 @@ private:
 
 public:
 	template<class T>
-	void register_item(const key_type& key, T&& value)
+	void register_item(const Key& key, T&& value)
 	{
 		m_registry.emplace(key, std::forward<T>(value));
 		keys.emplace(key);
 	}
 
-	const value_type* get_item(const key_type& key) const
+	const Value* get_item(const Key& key) const
 	{
 		auto result = m_registry.find(key);
 		return result != m_registry.end() ?
 			&result->second : nullptr;
 	}
 
-	value_type* get_item(const key_type& key)
+	Value* get_item(const Key& key)
 	{
 		auto result = m_registry.find(key);
 		return result != m_registry.end() ?
 			&result->second : nullptr;
 	}
-
 
 	const keys_type& get_registered_items() const
 	{

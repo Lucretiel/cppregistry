@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <CPPRegistry\MemberFunctionMacros.h>
+#include <CPPRegistry/Macros/MemberFunction/MemberFunctionMacros.h>
 
 #define MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, OBJECT_TYPE, ...) \
 	BASIC_MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, std::string, RETURN_TYPE, OBJECT_TYPE, __VA_ARGS__)

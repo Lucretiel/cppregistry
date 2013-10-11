@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <CPPRegistry\FunctionMarcos.h>
+#include <CPPRegistry/Macros/Function/FunctionMarcos.h>
 
 //Create a named global function registry with given return and argument types, using std::string as the key type
 #define FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, ...) \

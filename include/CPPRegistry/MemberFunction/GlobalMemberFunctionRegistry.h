@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry/MemberFunctionRegistry.h>
+#include <CPPRegistry/MemberFunction/MemberFunctionRegistry.h>
 
 namespace registry
 {
@@ -10,11 +10,11 @@ namespace registry
  *  registry. The NameTag template parameter allows multiple global instances of
  *  Registries with otherwise the same types to coexist.
  */
-template<class NameTag, class Key, class Ret, class Base, class... Args>
+template<class NameTag, class Key, class Ret, class Type, class... Args>
 class NamedGlobalMemberFunctionRegistry
 {
 private:
-	typedef MemberFunctionRegistry<Key, Ret, Base, Args...> registry_type;
+	typedef MemberFunctionRegistry<Key, Ret, Type, Args...> registry_type;
 
 	static registry_type& get_registry()
 	{
@@ -23,30 +23,29 @@ private:
 	}
 
 public:
-	typedef typename registry_type::key_type key_type;
+	typedef typename Key key_type;
+	typedef typename Type object_type;
+	typedef typename Ret return_type;
 	typedef typename registry_type::function_type function_type;
-	typedef typename registry_type::object_type object_type;
-	typedef typename registry_type::return_type return_type;
 	typedef typename registry_type::keys_type keys_type;
 
 	//returns bool for static initializtion
-	static bool register_function(const key_type& key, function_type func)
+	static bool register_function(const Key& key, function_type func)
 	{
 		get_registry().register_function(key, func);
 		return true;
 	}
 
-	static function_type get_function(const key_type& key)
+	static function_type get_function(const Key& key)
 	{
 		return get_registry().get_function(key);
 	}
 
 	template<class T, class... DeterminedTypes>
-	static return_type call_member_function(T&& object, const key_type& key, DeterminedTypes&&... args)
+	static Ret call_function(T&& object, const Key& key, DeterminedTypes&&... args)
 	{
-		return get_registry().call_member_function(
-			std::forward<T>(object),
-			key,
+		return get_registry().call_function(
+			std::forward<T>(object), key,
 			std::forward<DeterminedTypes>(args)...);
 	}
 

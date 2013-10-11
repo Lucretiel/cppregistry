@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\TypeRegistry.h>
+#include <CPPRegistry/Type/TypeRegistry.h>
 
 namespace registry
 {
@@ -18,20 +18,20 @@ private:
 	}
 
 public:
-	typedef typename registry_type::key_type key_type;
-	typedef typename registry_type::base_type base_type;
-	typedef typename registry_type::base_ptr base_ptr;
+	typedef Key key_type;
+	typedef Base base_type;
+	typedef Base* base_ptr;
 	typedef typename registry_type::keys_type keys_type;
 
 	//returns bool for static initializtion
 	template<class Derived>
-	static bool register_type(const key_type& key)
+	static bool register_type(const Key& key)
 	{
 		get_registry().register_type<Derived>(key);
 		return true;
 	}
 
-	static base_ptr make_type(const key_type& key)
+	static Base* make_type(const Key& key)
 	{
 		return get_registry().make_type(key);
 	}

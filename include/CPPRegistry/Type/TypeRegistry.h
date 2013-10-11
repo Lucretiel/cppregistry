@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\FunctionRegistry.h>
+#include <CPPRegistry/Function/FunctionRegistry.h>
 
 namespace registry
 {
@@ -19,7 +19,7 @@ private:
 	typedef FunctionRegistry<key_type, base_ptr> registry_type;
 
 public:
-	typedef registry_type::keys_type keys_type;
+	typedef typename registry_type::keys_type keys_type;
 
 private:
 	registry_type m_registry;
@@ -32,18 +32,15 @@ private:
 
 public:
 	template<class Derived>
-	void register_type(const key_type& key)
+	void register_type(const Key& key)
 	{
 		m_registry.register_function(key, &make<Derived>);
 	}
 
-	base_ptr make_type(const key_type& key) const
+	Base* make_type(const Key& key) const
 	{
 		auto maker = m_registry.get_function(key);
-		if(maker)
-			return maker();
-		else
-			return nullptr;
+		return maker ? maker() : nullptr;
 	}
 
 	const keys_type& get_registered_types() const

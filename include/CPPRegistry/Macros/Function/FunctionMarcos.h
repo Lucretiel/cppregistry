@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\GlobalFunctionRegistry.h>
+#include <CPPRegistry/Function/GlobalFunctionRegistry.h>
 
 //Create named global function registry with given key, return, and argument types
 #define BASIC_FUNCTION_REGISTRY(REGISTRY_NAME, KEY_TYPE, RETURN_TYPE, ...) \

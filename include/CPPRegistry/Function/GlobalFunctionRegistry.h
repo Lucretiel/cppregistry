@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry/FunctionRegistry.h>
+#include <CPPRegistry/Function/FunctionRegistry.h>
 
 namespace registry
 {
@@ -23,25 +23,25 @@ private:
 	}
 
 public:
-	typedef typename registry_type::key_type key_type;
+	typedef Key key_type;
+	typedef Ret return_type;
 	typedef typename registry_type::function_type function_type;
-	typedef typename registry_type::return_type return_type;
 	typedef typename registry_type::keys_type keys_type;
 
 	//returns bool for static initializtion
-	static bool register_function(const key_type& key, function_type func)
+	static bool register_function(const Key& key, function_type func)
 	{
 		get_registry().register_function(key, func);
 		return true;
 	}
 
-	static function_type get_function(const key_type& key)
+	static function_type get_function(const Key& key)
 	{
 		return get_registry().get_function(key);
 	}
 
 	template<class... DeterminedTypes>
-	static return_type call_function(const key_type& key, DeterminedTypes&&... args)
+	static Ret call_function(const Key& key, DeterminedTypes&&... args)
 	{
 		return get_registry().call_function(key, std::forward<DeterminedTypes>(args)...);
 	}

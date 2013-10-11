@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\GlobalTypeRegistry.h>
+#include <CPPRegistry/Type/GlobalTypeRegistry.h>
 
 #define BASIC_TYPE_REGISTRY(REGISTRY_NAME, KEY_TYPE, BASE_TYPE) \
 	namespace registries {struct _##REGISTRY_NAME##_nametag {}; \

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\GlobalMemberFunctionRegistry.h>
+#include <CPPRegistry/MemberFunction/GlobalMemberFunctionRegistry.h>
 
 #define BASIC_MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, KEY_TYPE, RETURN_TYPE, OBJECT_TYPE, ...) \
 	namespace registries {struct _##REGISTRY_NAME##_nametag {}; \
