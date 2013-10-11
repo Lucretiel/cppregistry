@@ -24,10 +24,10 @@ public:
 	//No instansiations for you.
 	virtual ~BaseFunctionRegistry() =0 {}
 
-	typedef Function* function_type;
+	typedef Function function_type;
 	typedef Key key_type;
 	typedef Ret return_type;
-	typedef registry_type::keys_type keys_type;
+	typedef typename registry_type::keys_type keys_type;
 
 	void register_function(const Key& key, function_type function)
 	{

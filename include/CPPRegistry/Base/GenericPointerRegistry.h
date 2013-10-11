@@ -5,35 +5,32 @@
 namespace registry
 {
 
-template<class Key, class Value>
+template<class Key, class Ptr>
 class GenericPointerRegistry
 {
-public:
-	typedef Key key_type;
-	typedef Value value_type;
-	typedef Value* value_ptr_type;
-
 private:
-	typedef GenericRegistry<Key, Value*> registry_type;
+	typedef GenericRegistry<Key, Ptr> registry_type;
 	registry_type m_registry;
 
 public:
+	typedef Key key_type;
+	typedef Ptr ptr_type;
 	typedef typename registry_type::keys_type keys_type;
 
-	void register_pointer(const Key& key, Value* value)
+	void register_pointer(const Key& key, Ptr value)
 	{
 		m_registry.register_item(key, value);
 	}
 
-	const Value* get_pointer(const Key& key) const
+	const Ptr get_pointer(const Key& key) const
 	{
-		const value_ptr* result = m_registry.get_item(key);
+		auto result = m_registry.get_item(key);
 		return result ? *result : nullptr;
 	}
 
-	Value* get_pointer(const Key& key) const
+	Ptr get_pointer(const Key& key)
 	{
-		value_ptr* result = m_registry.get_item(key);
+		auto result = m_registry.get_item(key);
 		return result ? *result : nullptr;
 	}
 

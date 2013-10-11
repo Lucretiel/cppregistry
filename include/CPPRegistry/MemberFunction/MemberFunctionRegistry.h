@@ -10,7 +10,7 @@ namespace registry
 {
 
 template<class Key, class Ret, class Type, class...Args>
-class MemberFunctionRegistry: public detail::BaseFunctionRegistry<Key, Ret(Type::)(Args...)>
+class MemberFunctionRegistry: public detail::BaseFunctionRegistry<Key, Ret(Type::*)(Args...)>
 {
 public:
 	typedef Ret return_type;
