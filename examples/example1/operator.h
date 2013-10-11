@@ -1,6 +1,6 @@
 #pragma once
 
-#include <CPPRegistry\Macros\Function\NamedFunctionMacros.h>
+#include <CPPRegistry\CPPRegistry.h>
 
 /*
  *  This header creates a global function registry called Operators, which
