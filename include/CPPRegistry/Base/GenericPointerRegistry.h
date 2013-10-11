@@ -1,5 +1,6 @@
 #pragma once
 
+#include <type_traits>
 #include <CPPRegistry/Base/GenericRegistry.h>
 
 namespace registry
@@ -14,6 +15,7 @@ private:
 
 public:
 	typedef Key key_type;
+	typedef typename std::remove_pointer<Ptr>::type value_type;
 	typedef Ptr ptr_type;
 	typedef typename registry_type::keys_type keys_type;
 
