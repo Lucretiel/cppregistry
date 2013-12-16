@@ -12,9 +12,9 @@ struct function_not_registered
 
 //Create named global function registry with given key, return, and argument types
 #define BASIC_FUNCTION_REGISTRY(REGISTRY_NAME, KEY_TYPE, RETURN_TYPE, ...) \
-	namespace registries {struct ##REGISTRY_NAME##_nametag {}; \
+	namespace registries {struct REGISTRY_NAME##_nametag {}; \
 		typedef registry::GlobalFunctionRegistry< \
-			##REGISTRY_NAME##_nametag, \
+			REGISTRY_NAME##_nametag, \
 			KEY_TYPE, RETURN_TYPE, __VA_ARGS__> REGISTRY_NAME;}
 
 //Create a named global function registry with given return and argument types, using std::string as the key type
@@ -23,7 +23,7 @@ struct function_not_registered
 
 //Register a function using a given key
 #define REGISTER_FUNCTION(REGISTRY, FUNCTION, KEY) \
-	namespace {const bool reg_##REGISTRY##_##FUNCTION##( \
+	namespace {const bool reg_##REGISTRY##_##FUNCTION( \
 		registries::REGISTRY::register_function((KEY), (&(FUNCTION))));}
 
 //Register a function, using the function's name as the key
@@ -60,9 +60,9 @@ struct function_not_registered
 //Most of these match up with the standalone function macros above
 
 #define BASIC_MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, KEY_TYPE, RETURN_TYPE, OBJECT_TYPE, ...) \
-	namespace registries {struct ##REGISTRY_NAME##_nametag {}; \
+	namespace registries {struct REGISTRY_NAME_nametag {}; \
 		typedef registry::GlobalMemberFunctionRegistry< \
-			##REGISTRY_NAME##_nametag, \
+			REGISTRY_NAME##_nametag, \
 			KEY_TYPE, RETURN_TYPE, OBJECT_TYPE, __VA_ARGS__> REGISTRY_NAME;}
 
 #define MEMBER_FUNCTION_REGISTRY(REGISTRY_NAME, RETURN_TYPE, OBJECT_TYPE, ...) \
@@ -90,9 +90,9 @@ struct function_not_registered
 /////////////////////////////////////////////////////////////////////
 
 #define BASIC_TYPE_REGISTRY(REGISTRY_NAME, KEY_TYPE, BASE_TYPE) \
-	namespace registries {struct ##REGISTRY_NAME##_nametag {}; \
+	namespace registries {struct REGISTRY_NAME##_nametag {}; \
 		typedef registry::GlobalTypeRegistry< \
-			##REGISTRY_NAME##_nametag, \
+			REGISTRY_NAME##_nametag, \
 			KEY_TYPE, BASE_TYPE> REGISTRY_NAME;}
 
 #define TYPE_REGISTRY(REGISTRY_NAME, BASE_TYPE) \

@@ -138,6 +138,7 @@ public:
 	}
 };
 
+#define MEMBER_FUNCTION(OBJECT, FUNC) ((OBJECT).*(FUNC))
 //Member function registry. Stores, retrieves, and calls member functions.
 template<class Key, class Ret, class Type, class...Args>
 class MemberFunctionRegistry: public BaseFunctionRegistry<Key, Ret(Type::*)(Args...)>
