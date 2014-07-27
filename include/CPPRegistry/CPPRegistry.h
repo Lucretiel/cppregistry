@@ -34,7 +34,7 @@ struct function_not_registered
 #define GET_FUNCTION(REGISTRY, KEY) \
 	(registries::REGISTRY::get_function((KEY)))
 
-//Call a function by name. May throw function_not_registered 
+//Call a function by name. May throw function_not_registered
 #define CALL_FUNCTION(REGISTRY, KEY, ...) \
 	(registries::REGISTRY::call_function((KEY), __VA_ARGS__))
 
