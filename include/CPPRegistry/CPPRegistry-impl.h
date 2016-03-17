@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <type_traits>
+#include <memory>
 
 namespace registry
 {
@@ -92,21 +93,21 @@ template<class Key, class Base, class... Args>
 class TypeRegistry
 {
 private:
-	typedef FunctionRegistry<Key, Base*, Args&&...> registry_type;
+	typedef FunctionRegistry<Key, std::unique_ptr<Base>, Args&&...> registry_type;
 
 public:
 	typedef typename registry_type::keys_type keys_type;
 	typedef Key key_type;
 	typedef Base base_type;
-	typedef Base* base_ptr;
 
 private:
 	registry_type m_registry;
 
 	template<class Derived>
-	static Base* make(Args&&... args)
+	static std::unique_ptr<Base> make(Args&&... args)
 	{
-		return new Derived(std::forward<Args>(args)...);
+		return std::unique_ptr<Base>(
+			new Derived(std::forward<Args>(args)...));
 	}
 
 public:
@@ -118,7 +119,7 @@ public:
 		m_registry.register_function(std::move(key), &make<Derived>);
 	}
 
-	Base* make_type(const Key& key, Args&&... args) const
+	std::unique_ptr<Base> make_type(const Key& key, Args&&... args) const
 	{
 		auto maker = m_registry.get_function(key);
 		return maker ? maker(std::forward<Args>(args)...) : nullptr;
@@ -243,7 +244,6 @@ private:
 public:
 	typedef Key key_type;
 	typedef Base base_type;
-	typedef Base* base_ptr;
 	typedef typename registry_type::keys_type keys_type;
 
 	//returns bool for static initializtion
@@ -254,7 +254,7 @@ public:
 		return true;
 	}
 
-	static Base* make_type(const Key& key)
+	static std::unique_ptr<Base> make_type(const Key& key)
 	{
 		return get_registry().make_type(key);
 	}
